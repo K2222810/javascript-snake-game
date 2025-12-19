@@ -69,12 +69,15 @@
 const cells = [];
 const width = 15;
 const numOfCells = width * width;
-
+// Sounds
+const eatSound = new Audio('./assets/eat.mp3');
+const deathSound = new Audio('./assets/death.mp3');
 // Game state
 let score;
 let lives;
 let gameActive;
 let gameInterval;
+let highscore;
 
 // Snake state
 let snake;        
@@ -88,6 +91,7 @@ const scoreEl = document.querySelector('#score');
 const livesEl = document.querySelector('#lives');
 const startButtonEl = document.querySelector('#start');
 const resetButtonEl = document.querySelector('#reset');
+const highScoreEl = document.querySelector('#high-score');
 
 /*-------------------------------- Functions --------------------------------*/
 
@@ -143,11 +147,7 @@ const movementSnake = () => {
   const head = snake[0];
   const newHead = head + direction;
   // if snake passes outside the grid limit up,left,right or down. It loses its life  
-  if (
-    (direction === 1 && head % width === width - 1) ||
-    (direction === -1 && head % width === 0) ||
-    (direction === width && head + width >= numOfCells) ||
-    (direction === -width && head - width < 0)
+  if ((direction === 1 && head % width === width - 1) || (direction === -1 && head % width === 0) || (direction === width && head + width >= numOfCells) || (direction === -width && head - width < 0)
   ) {
     loseLife();
     return;
@@ -161,8 +161,12 @@ const movementSnake = () => {
   snake.unshift(newHead);
   // collides with food , score increase 
   if (newHead === foodIndex) {
+    eatSound.currentTime = 0; 
+    eatSound.play();
+
     score++;
-    scoreEl.textContent = score;
+    scoreEl.textContent = "total score:" + score;
+    
     clearFood();
     placeFood();
   } 
@@ -179,8 +183,11 @@ const GameplayLoop = () => {
 };
 //  reset the tail and places the snake at the center
 const loseLife = () => {
+  deathSound.currentTime = 0;
+  deathSound.play();
+
   lives--;
-  livesEl.textContent = lives;
+  livesEl.textContent = "Total lives:"+ lives;
   if (lives <= 0) {
     endGame();
   } else {
@@ -202,6 +209,7 @@ const resetRound = () => {
 const endGame = () => {
   gameActive = false;
   clearInterval(gameInterval);
+  storeHighscore(); 
   messageEl.textContent = `Game Over! Final score: ${score}`;
 };
 
@@ -212,12 +220,26 @@ const startGame = () => {
   gameActive = true;
   messageEl.textContent = 'Game started';
   // this is frames per second ,it calls the gameplay 
-  gameInterval = setInterval(GameplayLoop, 300);
+  gameInterval = setInterval(GameplayLoop, 100);
 };
 
 const resetGame = () => {
   init();
 };
+
+
+const storeHighscore = () => {
+  const SnakeKey = 'snakeHighScore';
+  highscore = Number(localStorage.getItem(SnakeKey));
+  if (isNaN(highscore) || score > highscore) {
+    localStorage.setItem(SnakeKey, score);
+    highScoreEl.textContent = "Total HighScore: " + score;
+  } else {
+    highScoreEl.textContent = "Total HighScore: " + highscore;
+  }
+};
+
+
 
 // very simple code, if its detects the string change and direction is not the opposite to the meant direction. it switchs to the correspoding key 
 const handleKeyDown = (event) => {
@@ -253,8 +275,11 @@ const init = () => {
   lives = 3;
   gameActive = false;
 
-  scoreEl.textContent = score;
-  livesEl.textContent = lives;
+  
+
+  scoreEl.textContent = "total score:" + score;
+  livesEl.textContent = "Total lives:" + lives;
+
   messageEl.textContent = 'Ready to start';
   createGrid();
   snake = [112]; // as mention before,the snake starts at center in the game
