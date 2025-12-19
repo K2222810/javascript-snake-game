@@ -70,8 +70,9 @@ const cells = [];
 const width = 15;
 const numOfCells = width * width;
 // Sounds
-const eatSound = new Audio('./assets/eat.mp3');
-const deathSound = new Audio('./assets/death.mp3');
+const eatSound = new Audio('./assets/Pixel_Nosh.mp3');
+const deathSound = new Audio('./assets/pixel-death.mp3');
+const Buttom_soundEffect = new Audio('./assets/Buttom_soundEffect.mp3');
 // Game state
 let score;
 let lives;
@@ -132,7 +133,7 @@ const placeFood = () => {
   while (snake.includes(foodIndex));
   
   const apple = document.createElement('img');
-  apple.src = './assets/85-859374_red-apple-food-fruit.png';
+  apple.src = './assets/Apple.png';
   apple.classList.add('apple');
   cells[foodIndex].appendChild(apple);
 };
@@ -197,12 +198,17 @@ const loseLife = () => {
 
 // resets the round
 const resetRound = () => {
+  
+
   clearSnake();
   clearFood();
   snake = [112]; // the snake stars at the center off the grid 
   direction = 1;
   drawSnake();
   placeFood();
+
+  
+    
 };
 
 // stops game active and snake stops moving, the game is over
@@ -217,13 +223,18 @@ const endGame = () => {
 const startGame = () => {
   if (gameActive) return;
 
+  Buttom_soundEffect.play();
+
   gameActive = true;
   messageEl.textContent = 'Game started';
   // this is frames per second ,it calls the gameplay 
   gameInterval = setInterval(GameplayLoop, 100);
+
 };
 
 const resetGame = () => {
+  
+  Buttom_soundEffect.play();
   init();
 };
 
@@ -274,8 +285,6 @@ const init = () => {
   score = 0;
   lives = 3;
   gameActive = false;
-
-  
 
   scoreEl.textContent = "total score:" + score;
   livesEl.textContent = "Total lives:" + lives;
