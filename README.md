@@ -72,7 +72,7 @@ Next, food placement, score updates, and collision detection were added. Once th
 - Improved handling of keyboard events and real-time updates
 - Learned how small details can improve the player experience
 
-## Future Improvements
+## Things i could done better
 - Add different difficulty levels
 - Add mobile touch controls
 - Add pause and resume
