@@ -19,15 +19,7 @@ The project takes a classic game concept and uses it to practice structuring log
 
 ## Deployment Link
 **Live App:**  
-Add your deployed link here if available.
-
-## GitHub Repo
-**Frontend GitHub Repo**  
-Link: `https://github.com/K2222810/javascript-snake-game`
-
-## Timeframe & Working Team
-**Timeframe:** Add timeframe here  
-**Team:** Solo project
+https://snake-game-java.netlify.app/
 
 ## Planning
 The project began by defining the core gameplay loop and user interaction requirements before building the interface.
