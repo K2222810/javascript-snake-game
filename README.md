@@ -6,7 +6,6 @@ Yes — here’s the **same kind of project write-up** for **javascript-snake-ga
 A browser-based arcade game that recreates the classic Snake experience with score tracking, lives, sound effects, and responsive keyboard controls.
 
 ## Screenshot/Logo
-
 <img width="1899" height="1046" alt="image" src="https://github.com/user-attachments/assets/193ea581-566f-4450-b44b-1b108bab2b92" />
 
 
