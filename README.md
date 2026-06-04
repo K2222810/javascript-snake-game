@@ -1,7 +1,3 @@
-Yes — here’s the **same kind of project write-up** for **javascript-snake-game**, in the TRACE style.
-
----
-
 # JavaScript Snake Game
 A browser-based arcade game that recreates the classic Snake experience with score tracking, lives, sound effects, and responsive keyboard controls.
 
